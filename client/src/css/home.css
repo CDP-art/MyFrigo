@@ -1,0 +1,60 @@
+.container {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+
+.container header,
+.container main,
+.container footer {
+    width: 90vw;
+}
+
+
+
+.container footer {
+    margin: 20px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container footer input {
+    height: 30px;
+    width: 70%;
+    border: 2px solid;
+    padding: 10px;
+    font-size: large;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.container footer button {
+    width: 200px;
+    padding: 10px;
+    background-color: #0051ff;
+    border-radius: 50px;
+    color: azure;
+    font-size: medium;
+    border: 2px solid rgb(0, 0, 164);
+}
+
+.rispostaChat {
+    margin-top: 20px;
+    width: 70%;
+}
+
+
+
+
+
+@media screen and (min-width: 768px) {
+    .container footer input {
+        width: 300px;
+    }
+}
