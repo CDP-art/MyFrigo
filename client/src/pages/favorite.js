@@ -33,7 +33,6 @@ export default function Favorites() {
     }
 
 
-
     return (
         <>
             {favoriteRecipes.length === 0 ? (<h2>Non hai aggiunto ancora nessuna ricetta</h2>) : (
