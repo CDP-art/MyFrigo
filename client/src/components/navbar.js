@@ -7,11 +7,11 @@ const Navbar = () => {
         <>
             <div className="navbarContainer">
                 <nav>
-                    <Link to="/personalingredients" className="link">
+                    <Link to="/personalingredients" style={{ textDecoration: "none" }}>
                         <div className="logo">
                             <ul>
                                 <li>
-                                    <h1 style={{ color: "#F0F8FF" }}>MyFrigo</h1>
+                                    <h1>MyFrigo</h1>
                                     <img src={logoFrigo} alt="frigorifero"></img>
 
                                 </li>
@@ -24,10 +24,13 @@ const Navbar = () => {
                                 <Link to="/favorite" className="link"><b>Preferiti</b></Link>
                             </li>
                             <li>
-                                <Link to="/signup" className="link"><b>Signup</b></Link>
+                                <Link
+                                    to="/login"
+                                    className="link"
+                                ><b>Login</b></Link>
                             </li>
                             <li>
-                                <Link to="/login" className="link"><b>Login</b></Link>
+                                <Link to="/signup" className="link" id="signupButton"><b>Signup</b></Link>
                             </li>
                         </ul>
                     </div>

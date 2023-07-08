@@ -18,7 +18,7 @@ export default function Home() {
                 <h1>Accedi</h1>
                 <input type="text" placeholder="Email" />
                 <input type="password" placeholder="Password" />
-                <button type="button"><b>Accedi</b></button>
+                <button type="button" className="loginButton"><b>Accedi</b></button>
                 <Link to="/signup" style={{ textDecoration: "none" }}>
                     <p>Se non hai ancora un account registrati qui</p>
                 </Link>

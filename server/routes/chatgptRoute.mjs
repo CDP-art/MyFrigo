@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import "dotenv/config";
-const apiKey = "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"
+const apiKey = "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"
 
 
 async function chatGPT(req, res) {

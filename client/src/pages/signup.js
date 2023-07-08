@@ -54,7 +54,7 @@ function Signup() {
     return (
         <div className="formContainer">
             <h1>Registrati</h1>
-            <form method="post" action="http://localhost:8000/users/signup">
+            <form method="post" action="http://localhost:8000/users/signup" id="form">
                 <div>
                     <input
                         type="text"

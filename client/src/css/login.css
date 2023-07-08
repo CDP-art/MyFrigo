@@ -1,0 +1,38 @@
+.loginContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginContainer main {
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginContainer input {
+    height: 30px;
+    width: 70%;
+    border: 2px solid;
+    padding: 10px;
+    font-size: large;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.loginContainer button {
+    width: 200px;
+}
+
+@media screen and (min-width:768px) {
+    #main {
+        width: 60vw;
+    }
+
+    .loginContainer input {
+        width: 50%;
+    }
+}

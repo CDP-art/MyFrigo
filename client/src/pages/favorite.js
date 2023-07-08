@@ -9,10 +9,10 @@ export default function Favorites() {
     async function getFavoriteRecipes() {
         try {
             const res = await axios.get("http://localhost:8000/favoriteRecipes");
+            console.log(res.data)
             setFavoriteRecipes(res.data);
         } catch (err) {
             console.log(err.message);
-
         }
     };
 
@@ -32,18 +32,17 @@ export default function Favorites() {
         }
     }
 
-
     return (
         <>
             {favoriteRecipes.length === 0 ? (<h2>Non hai aggiunto ancora nessuna ricetta</h2>) : (
-                <ul>
+                <ol>
                     {favoriteRecipes.map((recipe, i) => (
                         <div>
-                            <li key={i}>{recipe}</li>
+                            <li key={i}>{recipe.message}</li>
                             <button onClick={removeFavoriteRecipe}>Cancella</button>
                         </div>
                     ))}
-                </ul>
+                </ol>
             )}
         </>
     )

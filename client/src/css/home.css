@@ -34,14 +34,15 @@
     margin: 10px;
 }
 
-.container footer button {
+.loginButton {
     width: 200px;
     padding: 10px;
-    background-color: #0051ff;
+    background-color: #340680;
     border-radius: 50px;
     color: azure;
     font-size: medium;
     border: 2px solid rgb(0, 0, 164);
+    cursor: pointer;
 }
 
 .rispostaChat {

@@ -15,6 +15,8 @@ export default function PersonalList() {
     const [userIngredients, setUserIngredients] = useState([])
     let [ingredientsNames, setIngredientsName] = useState("")
     const [recipe, setRecipe] = useState("")
+    //const [favoriteRecipe, setFavoriteRecipe] = useState([])
+    const [id, setId] = useState(1)
 
     async function getIngredients() {
         try {
@@ -142,11 +144,25 @@ export default function PersonalList() {
         }
     }
 
+    async function saveRecipe() {
+        try {
+            await axios.post(`http://localhost:8000/favoriteRecipes`, {
+                id: id,
+                content: recipe,
+            });
+            setId(id + 1)
+            console.log("RICETTA SALVATA");
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+
     return (
         <div className="container">
-            <h1>MyFrigo</h1>
-            <h3>Aggiungi nel tuo fringo gli ingredienti che più ti piacciono per creare una ricetta...artificiale!</h3>
-            <div className="listItems">
+            <main className="listItems">
+                <h1>MyFrigo</h1>
+                <h3>Aggiungi nel tuo fringo gli ingredienti che più ti piacciono per creare una ricetta...artificiale!</h3>
                 {newList.length === 0 ? (
                     <>
                         <h1>IL SERVER E' ATTUALMENTE OFFLINE</h1>
@@ -167,9 +183,9 @@ export default function PersonalList() {
                     </ul>
                 )}
 
-            </div>
-            <h3>Ecco la lista degli ingredienti che ho nel mio Frigo</h3>
+            </main>
             <div className="userList">
+                <h3>Ecco la lista degli ingredienti che ho nel mio Frigo</h3>
                 {userIngredients.length === 0 ? (<h3>La tua lista è vuota</h3>) : (
                     <ul>
                         {userIngredients.map((ingredient, i) => (
@@ -191,7 +207,7 @@ export default function PersonalList() {
                     </div>) : (
                         <div className="ricetta">
                             <span><p>{recipe}</p></span>
-                            <button>Salva la ricetta nei Preferiti</button>
+                            <button onClick={saveRecipe}>Salva la ricetta nei Preferiti</button>
                             <button>Reset</button>
                         </div>
                     )}

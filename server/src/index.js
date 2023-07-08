@@ -8,7 +8,7 @@ import cors from "cors"
 import fs from "fs"
 app.use(cors())
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false })); // per poter utilizzare l'html con il form per la login.
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
 
@@ -19,7 +19,8 @@ import {
     getIngredients,
     removeIngredient,
     getIngredientName,
-    getFavorites
+    getFavorites,
+    removeFavoriteRecipe
 }
     from "../routes/ingredientsRoutes.mjs"
 
@@ -117,6 +118,9 @@ app.get("/users", getUsers)
 
 //FAVORITE RECIPES
 app.get("/favoriteRecipes", getFavorites)
+
+//cancellazione ricetta
+app.delete("/favoriteRrecipes/", removeFavoriteRecipe)
 
 
 

@@ -120,8 +120,7 @@ async function removeFavoriteRecipe(req, res) {
         console.log(err);
         res
             .status(500)
-            .send("Ops! Si è verificato un errore. La ricetta non è stata rimossa")
-
+            .send("Ops! Si è verificato un errore. La ricetta non è stata rimossa");
     }
 }
 
@@ -131,5 +130,6 @@ export {
     getIngredientName,
     addIngredients,
     removeIngredient,
-    getFavorites
+    getFavorites,
+    removeFavoriteRecipe
 }
