@@ -16,6 +16,7 @@ export default function Favorites() {
         }
     };
 
+
     useEffect(() => {
         getFavoriteRecipes()
     }, [])
@@ -36,9 +37,9 @@ export default function Favorites() {
         <>
             {favoriteRecipes.length === 0 ? (<h2>Non hai aggiunto ancora nessuna ricetta</h2>) : (
                 <ol>
-                    {favoriteRecipes.map((recipe, i) => (
+                    {favoriteRecipes.map((recipe) => (
                         <div>
-                            <li key={i}>{recipe.message}</li>
+                            <li key={recipe.id}>{recipe.message}</li>
                             <button onClick={removeFavoriteRecipe}>Cancella</button>
                         </div>
                     ))}

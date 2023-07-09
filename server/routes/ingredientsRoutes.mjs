@@ -1,4 +1,7 @@
+import { strict } from "assert"
+import { log } from "console"
 import fs from "fs"
+import { stringify } from "querystring"
 
 
 const DB_INGREDIENTS_PATH = "./db/ingredientsList.json"
@@ -81,9 +84,9 @@ async function removeIngredient(req, res) {
     const { name } = req.params
     try {
         const data = fs.readFileSync(DB_USER_INGREDIENTS_PATH)
-        let ingredienti = JSON.parse(data)
-        ingredienti = ingredienti.filter(ingrediente => ingrediente.name !== name)
-        fs.writeFileSync(DB_USER_INGREDIENTS_PATH, JSON.stringify(ingredienti));
+        let ingredients = JSON.parse(data)
+        ingredients = ingredients.filter(ingrediente => ingrediente.name !== name)
+        fs.writeFileSync(DB_USER_INGREDIENTS_PATH, JSON.stringify(ingredients));
         res.status(201).send("Ingrediente cancellato correttamente!")
     } catch (err) {
         console.log(err);
@@ -97,13 +100,29 @@ async function removeIngredient(req, res) {
 //preferiti
 async function getFavorites(req, res) {
     try {
-        const data = fs.readFileSync(DB_RECIPES_PATH)
-        let recipes = JSON.parse(data)
-        res.status(200).send(recipes)
+        const data = fs.readFileSync(DB_RECIPES_PATH, 'utf8');
+        const recipes = JSON.parse(data);
+        res.status(200).json(recipes);
     } catch (err) {
         console.log(err);
-        res.status(500)
+        res.status(500).send(err.message);
+    }
+}
 
+
+//aggiunta ai preferiti
+async function addFavoriteRecipe(req, res) {
+    const { name, id } = req.body;
+    try {
+        const data = fs.readFileSync(DB_RECIPES_PATH);
+        const recipes = JSON.parse(data);
+        const newRecipe = { name, id };
+        recipes.push(newRecipe);
+        fs.writeFileSync(DB_RECIPES_PATH, JSON.stringify(recipes));
+        res.json(newRecipe);
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send(err.message);
     }
 }
 
@@ -131,5 +150,6 @@ export {
     addIngredients,
     removeIngredient,
     getFavorites,
+    addFavoriteRecipe,
     removeFavoriteRecipe
 }

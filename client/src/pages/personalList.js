@@ -15,9 +15,12 @@ export default function PersonalList() {
     const [userIngredients, setUserIngredients] = useState([])
     let [ingredientsNames, setIngredientsName] = useState("")
     const [recipe, setRecipe] = useState("")
-    //const [favoriteRecipe, setFavoriteRecipe] = useState([])
-    const [id, setId] = useState(1)
+    //const [id, setId] = useState(1)
+    const [loading, setLoading] = useState("")
+    const [error, setError] = useState("")
 
+
+    //Lista generale degli ingredienti
     async function getIngredients() {
         try {
             const res = await axios.get("http://localhost:8000/ingredients");
@@ -28,6 +31,12 @@ export default function PersonalList() {
         }
     };
 
+    useEffect(() => {
+        getIngredients();
+    }, []);
+
+
+    //Lista ingredienti aggiunti
     async function getUserIngredients() {
         try {
             const res = await axios.get("http://localhost:8000/ingredients/user");
@@ -39,10 +48,7 @@ export default function PersonalList() {
 
     useEffect(() => {
         getUserIngredients()
-    }, [userIngredients])
-    useEffect(() => {
-        getIngredients();
-    }, []);
+    }, [])
 
 
     function checkList() {
@@ -92,7 +98,7 @@ export default function PersonalList() {
         try {
             await axios.post("http://localhost:8000/ingredients/user", { name });
             console.log("Ingrediente aggiunto");
-            getIngredients()
+            getUserIngredients()
             console.log(ingredientsList);
         } catch (err) {
             console.log(err.message);
@@ -102,7 +108,7 @@ export default function PersonalList() {
     async function removeIngredient(name) {
         try {
             await axios.delete(`http://localhost:8000/ingredients/user/${name}`);
-            getIngredients();
+            getUserIngredients();
             console.log("Ingrediente rimosso");
             Swal.fire({
                 position: 'center',
@@ -130,7 +136,8 @@ export default function PersonalList() {
         try {
             const ingredientsNamesArray = userIngredients.map(obj => obj.name);
             ingredientsNames = ingredientsNamesArray.join(", ")
-            setIngredientsName(ingredientsNames)
+            setIngredientsName(ingredientsNames);
+            setLoading("Sto creando...")
 
             const res = await axios.post("http://localhost:8000/chat", {
                 message: `creami una ricetta solo ed esclusivamente con ${ingredientsNames}.`
@@ -139,23 +146,26 @@ export default function PersonalList() {
             console.log(reply);
             console.log("DOPO" + ingredientsNames)
             setRecipe(reply)
+            setLoading("")
         } catch (err) {
             console.log(err.message);
+            setError("Ops, si è verificato un errore. Riprova più tardi")
+            setLoading("")
         }
     }
 
+
     async function saveRecipe() {
         try {
-            await axios.post(`http://localhost:8000/favoriteRecipes`, {
-                id: id,
+            await axios.post("http://localhost:8000/favoriteRecipes", {
                 content: recipe,
             });
-            setId(id + 1)
             console.log("RICETTA SALVATA");
         } catch (err) {
             console.log(err);
         }
     }
+
 
 
     return (
@@ -178,7 +188,8 @@ export default function PersonalList() {
                                 </div>
                                 <span>{ingrediente.name.toUpperCase()}</span>
                                 <button onClick={() => addIngredient(ingrediente.name)}
-                                >Aggiungi</button></li>
+                                >Aggiungi</button>
+                            </li>
                         ))}
                     </ul>
                 )}
@@ -202,15 +213,25 @@ export default function PersonalList() {
                 <p><b>Clicca il bottone qui in basso per creare una ricetta con gli ingredienti selezionati!</b></p>
                 <button onClick={ricetta} id="chatButton">Crea la ricetta</button>
                 <div className="rispostaChat">
-                    {!recipe ? (<div>
-                        <span><b>Sono in attesa degli ingredienti che mi proponi</b></span>
-                    </div>) : (
-                        <div className="ricetta">
-                            <span><p>{recipe}</p></span>
-                            <button onClick={saveRecipe}>Salva la ricetta nei Preferiti</button>
-                            <button>Reset</button>
-                        </div>
-                    )}
+                    <div>
+                        {!recipe && !loading && !error ? (
+                            <div>
+                                <span><b>Sono in attesa degli ingredienti che mi proponi</b></span>
+                            </div>
+                        ) : loading ? (
+                            <p>{loading}</p>
+                        ) : recipe ? (
+                            <div className="ricetta">
+                                <span><p>{recipe}</p></span>
+                                <button onClick={saveRecipe}>Salva la ricetta nei Preferiti</button>
+                                <button>Reset</button>
+                            </div>
+                        ) : (
+                            <div>
+                                <span><b>{error}</b></span>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </footer>
         </div>

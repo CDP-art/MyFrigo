@@ -20,6 +20,7 @@ import {
     removeIngredient,
     getIngredientName,
     getFavorites,
+    addFavoriteRecipe,
     removeFavoriteRecipe
 }
     from "../routes/ingredientsRoutes.mjs"
@@ -119,7 +120,10 @@ app.get("/users", getUsers)
 //FAVORITE RECIPES
 app.get("/favoriteRecipes", getFavorites)
 
-//cancellazione ricetta
+//ADD FAVORITE RECIPE
+app.post("/favoriteRecipes", addFavoriteRecipe)
+
+//REMOVE FAVORITE RECIPE
 app.delete("/favoriteRrecipes/", removeFavoriteRecipe)
 
 
