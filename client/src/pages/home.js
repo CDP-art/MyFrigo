@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
     return (
-        <div className="container">
+        <div className="homeContainer">
             <header>
                 <h1>Benvenuto in MYFRIGO</h1>
                 <h2>L'applicazione che ti crea ricette in base agli ingredienti che hai in casa!</h2>
@@ -19,12 +19,12 @@ export default function Home() {
                 <input type="text" placeholder="Email" />
                 <input type="password" placeholder="Password" />
                 <button type="button" className="loginButton"><b>Accedi</b></button>
-                <Link to="/signup" style={{ textDecoration: "none" }}>
-                    <p>Se non hai ancora un account registrati qui</p>
-                </Link>
-                <Link to="/personalingredients" style={{ textDecoration: "none" }}>
-                    <p>Oppure inizia dalla versione gratuita</p>
-                </Link>
+                <div className="links">
+                    <p>Se non hai ancora un account: <Link to="/signup" style={{ color: "black" }}><b>registrati qui</b></Link></p>
+                    <Link to="/personalingredients" style={{ color: "black" }}>
+                        <p>Oppure inizia dalla versione gratuita</p>
+                    </Link>
+                </div>
             </footer>
         </div>)
 }

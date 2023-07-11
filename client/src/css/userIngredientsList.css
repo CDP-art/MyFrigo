@@ -7,6 +7,8 @@
 
 .listItems {
     width: 100%;
+    padding-top: 30px;
+    padding-bottom: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,8 +16,9 @@
 }
 
 .listItems ul {
-    width: 80%;
-    height: 70vh;
+    width: 90%;
+    height: 90vh;
+    margin-top: 50px;
     overflow: scroll;
     padding: 0;
     display: flex;
@@ -40,12 +43,10 @@
     padding: 5px;
 }
 
-.listItems li:hover {
+.listItems li img:hover {
     transform: scale(1.1);
     transition-duration: 0.5s;
 }
-
-
 
 .images {
     width: 95%;
@@ -70,12 +71,12 @@
     font-weight: 900;
     border-radius: 10px;
     border: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .listItems button:active {
     transform: scale(0.80);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .listItems button:hover {
@@ -87,14 +88,20 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .userList ul {
     width: 100%;
+    margin-bottom: 70px;
+    /* background: linear-gradient(#00aaff, #65ccff, #b3e6ff, #def4ff); */
+    background: linear-gradient(#005b88, #def4ff);
     padding: 0;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 50px;
 
 }
 
@@ -115,13 +122,14 @@
 .userList button {
     background-color: rgb(114, 0, 0);
     color: white;
-    padding: 10px;
+    padding: 5px;
     width: 90%;
     border-radius: 10px;
     cursor: pointer;
 }
 
-#chatButton {
+#ricettaButton {
+    margin-top: 30px;
     padding: 10px;
     width: 200px;
     border-radius: 20px;
@@ -136,21 +144,83 @@
     transition: transform 0.2s;
 }
 
-#chatButton:hover {
-    transform: scale(1.05);
+#ricettaButton:hover {
+    transform: scale(1.1);
+}
+
+#ricettaButton:active {
+    transform: scale(1);
+}
+
+.container footer {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rispostaChat {
+    height: 40vh;
+    width: 90%;
 }
 
 .ricetta {
-    margin: 10px, 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 10px 4px #0060A8;
+    border-radius: 30px;
+}
+
+
+.decisionButton {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.ricetta button {
-    margin: 10px;
-    padding: 10px;
+.decisionButton button {
+    width: 200px;
+    height: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: none;
     border-radius: 20px;
     cursor: pointer;
+    font-size: medium;
+    border: 1px solid #F5970A;
+    background-color: #0060A8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+    color: #ffefd7;
+}
+
+
+@media screen and (min-width: 425px) {
+    .userList ul {
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .userList ul {
+        width: 40%;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .ricetta {
+        height: 60vh;
+        text-align: center;
+    }
 }

@@ -6,7 +6,7 @@
     justify-content: center;
 }
 
-nav {
+.navbarContainer nav {
     width: 95%;
     display: flex;
     flex-direction: row;
@@ -16,9 +16,10 @@ nav {
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
     background: linear-gradient(to right, #001163, #340680, #1A09B3, #0C6BE8, #0CA8EB);
+    /* background: linear-gradient(to right, #001163, #0CA8EB); */
 }
 
-li {
+.navbarContainer li {
     list-style-type: none;
     margin: 0 20px;
     color: black;
@@ -82,7 +83,7 @@ li {
 }
 
 @media screen and (max-width:520px) {
-    nav {
+    .navbarContainer nav {
         align-items: center;
         text-align: center;
         flex-direction: column;

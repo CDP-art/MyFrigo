@@ -13,6 +13,8 @@ app.use(express.json());
 
 
 //INGREDIENTI
+
+
 import {
     addIngredients,
     getUserIngredients,
@@ -32,6 +34,9 @@ import {
 }
     from "../routes/usersRoutes.mjs"
 
+
+
+
 //MONGODB
 
 // import { run } from "./mongodb.mjs"
@@ -45,7 +50,8 @@ import {
 // }
 //     from "../routes/ingredientsRoutesMDB.mjs"
 
-//USERS
+// //USERS
+
 // import {
 //     signup,
 //     getUsers
@@ -61,6 +67,8 @@ app.get('/', (req, res) => {
 })
 
 //MONGODB
+
+
 // run()
 
 // //chiamata per tutti gli ingredienti
@@ -124,7 +132,7 @@ app.get("/favoriteRecipes", getFavorites)
 app.post("/favoriteRecipes", addFavoriteRecipe)
 
 //REMOVE FAVORITE RECIPE
-app.delete("/favoriteRrecipes/", removeFavoriteRecipe)
+app.delete("/favoriteRecipes:id", removeFavoriteRecipe)
 
 
 

@@ -1,1 +1,14 @@
-[]
+[
+    {
+        "name": "ciccio",
+        "surname": "ciccio",
+        "email": "ciccio@ciccio",
+        "password": "ciccio"
+    },
+    {
+        "name": "franco",
+        "surname": "franco",
+        "email": "franco@franco",
+        "password": "franco"
+    }
+]

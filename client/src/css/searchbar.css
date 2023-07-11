@@ -1,0 +1,18 @@
+#searchbar {
+    width: 100%;
+    margin: 20px
+}
+
+#searchbar input {
+    font-size: larger;
+    padding: 20px;
+    border: none;
+    border: 1px solid grey;
+    border-radius: 40px
+}
+
+@media screen and (min-width:768px) {
+    #searchbar input {
+        width: 50%
+    }
+}

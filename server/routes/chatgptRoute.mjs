@@ -1,8 +1,6 @@
-
-
 import axios from "axios";
 import "dotenv/config";
-const apiKey = "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"
+const apiKey = process.env.OPENAI_API_KEY
 
 
 async function chatGPT(req, res) {
@@ -29,10 +27,6 @@ async function chatGPT(req, res) {
         res.status(500).json({ error: 'An error occurred while processing your request.' });
     }
 }
-
-
-
-
 
 export { chatGPT }
 

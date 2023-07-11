@@ -1,32 +1,37 @@
-.container {
+.homeContainer {
     width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-
 }
 
 
-.container header,
-.container main,
-.container footer {
-    width: 90vw;
+.homeContainer header,
+.homeContainer main,
+.homeContainer footer {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 
 
-.container footer {
-    margin: 20px;
+.homeContainer footer {
+    margin-top: 20px;
+    margin-bottom: 20px;
     min-height: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.container footer input {
+.homeContainer footer input {
     height: 30px;
-    width: 70%;
+    width: 90%;
     border: 2px solid;
     padding: 10px;
     font-size: large;
@@ -45,17 +50,14 @@
     cursor: pointer;
 }
 
-.rispostaChat {
-    margin-top: 20px;
-    width: 70%;
+.homeContainer .links {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-
-
-
-
 @media screen and (min-width: 768px) {
-    .container footer input {
+    .homeContainer footer input {
         width: 300px;
     }
 }

@@ -25,21 +25,20 @@ function Signup() {
         }
 
         try {
-            const res = await axios.get("http://localhost:8000/users")
-            const usersList = res.data
             await axios.post("http://localhost:8000/users/signup", {
                 name,
                 surname,
                 email,
                 password,
             });
+            console.log(email);
             MySwal.fire({
                 icon: "success",
                 text: "CONGRATULAZIONI! TI SEI REGISTRATO CORRETTAMENTE",
                 confirmButtonText: "OK"
 
             })
-            console.log("DOPO" + usersList);
+            //console.log("DOPO" + usersList);
         } catch (err) {
             MySwal.fire({
                 icon: "warning",
@@ -112,7 +111,7 @@ function Signup() {
             </form>
             <footer>
                 <h5>Hai già un Account?</h5>
-                <Link to="/login">
+                <Link to="/login" className="accedi">
                     <h5>Accedi da qui</h5>
                 </Link>
             </footer>

@@ -1,7 +1,4 @@
-import { strict } from "assert"
-import { log } from "console"
 import fs from "fs"
-import { stringify } from "querystring"
 
 
 const DB_INGREDIENTS_PATH = "./db/ingredientsList.json"
@@ -87,7 +84,7 @@ async function removeIngredient(req, res) {
         let ingredients = JSON.parse(data)
         ingredients = ingredients.filter(ingrediente => ingrediente.name !== name)
         fs.writeFileSync(DB_USER_INGREDIENTS_PATH, JSON.stringify(ingredients));
-        res.status(201).send("Ingrediente cancellato correttamente!")
+        res.status(200).send("Ingrediente cancellato correttamente!")
     } catch (err) {
         console.log(err);
         res
@@ -100,7 +97,7 @@ async function removeIngredient(req, res) {
 //preferiti
 async function getFavorites(req, res) {
     try {
-        const data = fs.readFileSync(DB_RECIPES_PATH, 'utf8');
+        const data = fs.readFileSync(DB_RECIPES_PATH,);
         const recipes = JSON.parse(data);
         res.status(200).json(recipes);
     } catch (err) {
@@ -112,17 +109,19 @@ async function getFavorites(req, res) {
 
 //aggiunta ai preferiti
 async function addFavoriteRecipe(req, res) {
-    const { name, id } = req.body;
+    const { id, message } = req.body;
     try {
         const data = fs.readFileSync(DB_RECIPES_PATH);
-        const recipes = JSON.parse(data);
-        const newRecipe = { name, id };
+        const recipes = JSON.parse(data)
+
+        const newRecipe = { id, message };
         recipes.push(newRecipe);
+
         fs.writeFileSync(DB_RECIPES_PATH, JSON.stringify(recipes));
-        res.json(newRecipe);
+        res.status(201).json({ success: true }); // Invia una risposta JSON con success: true
     } catch (err) {
-        console.log(err.message);
-        res.status(500).send(err.message);
+        console.log(err);
+        res.status(500).json({ success: false, error: err.message }); // Invia una risposta JSON con success: false e l'errore
     }
 }
 
@@ -132,11 +131,11 @@ async function removeFavoriteRecipe(req, res) {
     try {
         const data = fs.readFileSync(DB_RECIPES_PATH)
         let recipes = JSON.parse(data)
-        recipes = recipes.filter(ingrediente => ingrediente.id !== id)
+        recipes = recipes.filter(recipe => recipe.id !== id)
         fs.writeFileSync(DB_RECIPES_PATH, JSON.stringify(recipes));
-        res.status(201).send("Ingrediente cancellato correttamente!")
+        res.status(200).send("Ingrediente cancellato correttamente!")
     } catch (err) {
-        console.log(err);
+        console.log(err.message);
         res
             .status(500)
             .send("Ops! Si è verificato un errore. La ricetta non è stata rimossa");

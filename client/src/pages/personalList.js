@@ -6,6 +6,7 @@ import withReactContent from 'sweetalert2-react-content'
 import "dotenv/config";
 import "../css/userIngredientsList.css"
 import "../css/chatButton.css"
+//import SearchBar from "../components/searchbar";
 
 export default function PersonalList() {
 
@@ -15,9 +16,10 @@ export default function PersonalList() {
     const [userIngredients, setUserIngredients] = useState([])
     let [ingredientsNames, setIngredientsName] = useState("")
     const [recipe, setRecipe] = useState("")
-    //const [id, setId] = useState(1)
     const [loading, setLoading] = useState("")
     const [error, setError] = useState("")
+    const [id, setId] = useState(1)
+    //const [filteredName, setFilteredName] = useState([])
 
 
     //Lista generale degli ingredienti
@@ -35,7 +37,6 @@ export default function PersonalList() {
         getIngredients();
     }, []);
 
-
     //Lista ingredienti aggiunti
     async function getUserIngredients() {
         try {
@@ -51,6 +52,8 @@ export default function PersonalList() {
     }, [])
 
 
+
+    //Lista ordinata in ordine alfabetico
     function checkList() {
         if (!ingredients || ingredients.length === 0) {
             return [];
@@ -67,7 +70,9 @@ export default function PersonalList() {
     const newList = checkList()
 
 
+    //Aggiungi ingrediente
     async function addIngredient(name) {
+        console.log("SONO QUI");
         const res = await axios.get("http://localhost:8000/ingredients/user");
         const ingredientsList = res.data
 
@@ -105,6 +110,8 @@ export default function PersonalList() {
         }
     }
 
+
+    //Rimuovi ingrediente
     async function removeIngredient(name) {
         try {
             await axios.delete(`http://localhost:8000/ingredients/user/${name}`);
@@ -122,9 +129,11 @@ export default function PersonalList() {
         }
     };
 
+
+    //Ricetta chatGPT
     async function ricetta() {
 
-        if (userIngredients.length <= 2) {
+        if (userIngredients.length < 2) {
             Swal.fire({
                 icon: "info",
                 title: "Devi aggiungere almeno 2 ingredienti!",
@@ -155,24 +164,56 @@ export default function PersonalList() {
     }
 
 
+
+    //Salva nei preferiti
     async function saveRecipe() {
         try {
+            const res = await axios.get("http://localhost:8000/favoriteRecipes");
+            const fRecipes = res.data;
+            console.log(fRecipes);
+
+            if (!recipe) {
+                MySwal.fire({
+                    icon: "warning",
+                    text: "Non esiste ancora nessuna ricetta",
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            let lastObjId;
+            if (fRecipes.length === 0) {
+                lastObjId = 1;
+                console.log("L'ARRAY E' VUOTO!");
+            } else {
+                const lastObj = fRecipes[fRecipes.length - 1];
+                console.log("C'E' QUALCOSA");
+                lastObjId = lastObj.id + 1;
+                console.log(lastObjId);
+                console.log(id);
+            }
+
+            setId(lastObjId);
             await axios.post("http://localhost:8000/favoriteRecipes", {
-                content: recipe,
+                id: lastObjId,
+                message: recipe
             });
-            console.log("RICETTA SALVATA");
+
+            MySwal.fire({
+                icon: "success",
+                text: "Ricetta salvata nei tuoi Preferiti!",
+                confirmButtonText: 'OK'
+            });
+
         } catch (err) {
             console.log(err);
         }
     }
 
-
-
     return (
         <div className="container">
             <main className="listItems">
-                <h1>MyFrigo</h1>
-                <h3>Aggiungi nel tuo fringo gli ingredienti che più ti piacciono per creare una ricetta...artificiale!</h3>
+                <h2>Aggiungi nel tuo fringo gli ingredienti che più ti piacciono per creare una ricetta...artificiale!</h2>
                 {newList.length === 0 ? (
                     <>
                         <h1>IL SERVER E' ATTUALMENTE OFFLINE</h1>
@@ -196,8 +237,12 @@ export default function PersonalList() {
 
             </main>
             <div className="userList">
-                <h3>Ecco la lista degli ingredienti che ho nel mio Frigo</h3>
-                {userIngredients.length === 0 ? (<h3>La tua lista è vuota</h3>) : (
+                <h2>Il mio frigo</h2>
+                {userIngredients.length === 0 ? (
+                    <div style={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <h3>Il tuo frigo è vuoto</h3>
+                    </div>
+                ) : (
                     <ul>
                         {userIngredients.map((ingredient, i) => (
                             <li key={i}>
@@ -211,27 +256,34 @@ export default function PersonalList() {
             </div>
             <footer>
                 <p><b>Clicca il bottone qui in basso per creare una ricetta con gli ingredienti selezionati!</b></p>
-                <button onClick={ricetta} id="chatButton">Crea la ricetta</button>
+                <button onClick={ricetta} id="ricettaButton">Crea la ricetta</button>
+                <button onClick={saveRecipe}>Salva nei Preferiti</button>
                 <div className="rispostaChat">
-                    <div>
-                        {!recipe && !loading && !error ? (
-                            <div>
-                                <span><b>Sono in attesa degli ingredienti che mi proponi</b></span>
-                            </div>
-                        ) : loading ? (
-                            <p>{loading}</p>
-                        ) : recipe ? (
+                    {!recipe && !loading && !error ? (
+                        <div>
+                            <span><b>Sono in attesa degli ingredienti che mi proponi</b></span>
+                        </div>
+                    ) : loading ? (
+                        <i>{loading}</i>
+                    ) : recipe ? (
+                        <>
                             <div className="ricetta">
-                                <span><p>{recipe}</p></span>
-                                <button onClick={saveRecipe}>Salva la ricetta nei Preferiti</button>
-                                <button>Reset</button>
+                                <p style={{ whiteSpace: 'pre-line', overflow: "scroll" }}>{recipe}</p>
                             </div>
-                        ) : (
-                            <div>
-                                <span><b>{error}</b></span>
+                            <div className="decisionButton">
+                                <button onClick={saveRecipe}>Salva nei Preferiti</button>
+                                <button onClick={(() => {
+                                    if (recipe) {
+                                        setRecipe("")
+                                    }
+                                })}>Reset</button>
                             </div>
-                        )}
-                    </div>
+                        </>
+                    ) : (
+                        <div>
+                            <span><b>{error}</b></span>
+                        </div>
+                    )}
                 </div>
             </footer>
         </div>
