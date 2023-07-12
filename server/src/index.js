@@ -132,7 +132,7 @@ app.get("/favoriteRecipes", getFavorites)
 app.post("/favoriteRecipes", addFavoriteRecipe)
 
 //REMOVE FAVORITE RECIPE
-app.delete("/favoriteRecipes:id", removeFavoriteRecipe)
+app.delete("/favoriteRecipes/:id", removeFavoriteRecipe)
 
 
 

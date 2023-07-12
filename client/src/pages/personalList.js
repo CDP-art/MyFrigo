@@ -6,7 +6,6 @@ import withReactContent from 'sweetalert2-react-content'
 import "dotenv/config";
 import "../css/userIngredientsList.css"
 import "../css/chatButton.css"
-//import SearchBar from "../components/searchbar";
 
 export default function PersonalList() {
 
@@ -19,7 +18,6 @@ export default function PersonalList() {
     const [loading, setLoading] = useState("")
     const [error, setError] = useState("")
     const [id, setId] = useState(1)
-    //const [filteredName, setFilteredName] = useState([])
 
 
     //Lista generale degli ingredienti
@@ -187,12 +185,8 @@ export default function PersonalList() {
                 console.log("L'ARRAY E' VUOTO!");
             } else {
                 const lastObj = fRecipes[fRecipes.length - 1];
-                console.log("C'E' QUALCOSA");
                 lastObjId = lastObj.id + 1;
-                console.log(lastObjId);
-                console.log(id);
             }
-
             setId(lastObjId);
             await axios.post("http://localhost:8000/favoriteRecipes", {
                 id: lastObjId,
@@ -201,7 +195,7 @@ export default function PersonalList() {
 
             MySwal.fire({
                 icon: "success",
-                text: "Ricetta salvata nei tuoi Preferiti!",
+                text: `Ricetta n. ${id} salvata nei Preferiti!`,
                 confirmButtonText: 'OK'
             });
 
@@ -257,12 +251,9 @@ export default function PersonalList() {
             <footer>
                 <p><b>Clicca il bottone qui in basso per creare una ricetta con gli ingredienti selezionati!</b></p>
                 <button onClick={ricetta} id="ricettaButton">Crea la ricetta</button>
-                <button onClick={saveRecipe}>Salva nei Preferiti</button>
                 <div className="rispostaChat">
                     {!recipe && !loading && !error ? (
-                        <div>
-                            <span><b>Sono in attesa degli ingredienti che mi proponi</b></span>
-                        </div>
+                        <></>
                     ) : loading ? (
                         <i>{loading}</i>
                     ) : recipe ? (

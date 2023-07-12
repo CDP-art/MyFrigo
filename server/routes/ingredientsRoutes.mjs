@@ -126,13 +126,20 @@ async function addFavoriteRecipe(req, res) {
 }
 
 //rimuovi preferiti
+
+
 async function removeFavoriteRecipe(req, res) {
-    const { id } = req.params
+    console.log("funzione chiamata");
+    const id = parseInt(req.params.id);
     try {
         const data = fs.readFileSync(DB_RECIPES_PATH)
         let recipes = JSON.parse(data)
-        recipes = recipes.filter(recipe => recipe.id !== id)
+        recipes = recipes.filter(recipe => recipe.id !== id);
+        recipes.forEach((recipe, index) => {
+            recipe.id = index + 1;
+        });
         fs.writeFileSync(DB_RECIPES_PATH, JSON.stringify(recipes));
+        //console.log("DOPO FS" + recipes);
         res.status(200).send("Ingrediente cancellato correttamente!")
     } catch (err) {
         console.log(err.message);
@@ -141,6 +148,8 @@ async function removeFavoriteRecipe(req, res) {
             .send("Ops! Si è verificato un errore. La ricetta non è stata rimossa");
     }
 }
+
+
 
 export {
     getIngredients,

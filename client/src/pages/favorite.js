@@ -47,6 +47,7 @@ export default function Favorites() {
     };
 
 
+
     return (
         <div id="favorites">
             {favoriteRecipes.length === 0 ? (<h2>Non hai aggiunto ancora nessuna ricetta</h2>) : (
