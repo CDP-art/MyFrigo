@@ -156,7 +156,7 @@ export default function PersonalList() {
             setLoading("")
         } catch (err) {
             console.log(err.message);
-            setError("Ops, si è verificato un errore. Riprova più tardi")
+            setError("Ops, si è verificato un errore. Riprova più tardi: " + err.message)
             setLoading("")
         }
     }
@@ -174,7 +174,10 @@ export default function PersonalList() {
                 MySwal.fire({
                     icon: "warning",
                     text: "Non esiste ancora nessuna ricetta",
-                    confirmButtonText: 'OK'
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+
                 });
                 return;
             }
@@ -195,8 +198,10 @@ export default function PersonalList() {
 
             MySwal.fire({
                 icon: "success",
-                text: `Ricetta n. ${id} salvata nei Preferiti!`,
-                confirmButtonText: 'OK'
+                text: `Ricetta salvata nei Preferiti!`,
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
             });
 
         } catch (err) {
