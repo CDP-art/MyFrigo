@@ -37,7 +37,7 @@ export default function Favorites() {
             MySwal.fire({
                 position: 'center',
                 icon: "error",
-                title: "Ingrediente rimosso",
+                title: "Ricetta rimossa",
                 showConfirmButton: false,
                 timer: 900
             })

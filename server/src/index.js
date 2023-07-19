@@ -21,6 +21,12 @@ import {
     getIngredients,
     removeIngredient,
     getIngredientName,
+}
+    from "../routes/ingredientsRoutes.mjs"
+
+
+// FAVORITE RECIPES
+import {
     getFavorites,
     addFavoriteRecipe,
     removeFavoriteRecipe
@@ -56,6 +62,8 @@ import {
 //     signup,
 //     getUsers
 // } from '../routes/usersRoutesMDB.mjs';
+
+
 
 //CHATGPT
 import { chatGPT } from "../routes/chatgptRoute.mjs"

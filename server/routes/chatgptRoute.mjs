@@ -1,6 +1,6 @@
 import axios from "axios";
 import "dotenv/config";
-const apiKey = process.env.OPENAI_API_KEY
+const apiKey = "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"
 
 async function chatGPT(req, res) {
     const { message } = req.body;
